@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hug Day Surprise 🫂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 420px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+.hidden { display: none; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin: 8px 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.big-image {
+    width: 100%;
+    max-height: 90vh;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* 💌 MESSAGE */
+.love-msg {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff2e63;
+    line-height: 1.6;
+    margin-top: 20px;
+    animation: fadeIn 1s ease;
+}
+
+/* 🔥 SHAKE */
+.shake { animation: shake 0.4s; }
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-6px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 PASSWORD -->
+<div class="box" id="passwordBox">
+    <h2>Surprise ANJU CHECHI !</h2>
+    <input type="password" id="password" placeholder="How do you call me in malayalam?">
+    <button onclick="checkPassword()">Unlock</button>
+    <p class="error" id="passError"></p>
+</div>
+
+<!-- ❓ QUESTIONS -->
+<div class="box hidden" id="questionBox">
+    <h2>answer all the questions thango</h2>
+
+    <!-- Q1 -->
+    <div id="q1Box">
+        <p><strong>1) Who is Pranapkanth to you?</strong></p>
+        <label><input type="radio" name="q1" value="a"> Kanneta</label>
+        <label><input type="radio" name="q1" value="b"> S e * y BF</label>
+        <label><input type="radio" name="q1" value="c"> Ani's machan</label>
+        <button onclick="checkQ1()">Next</button>
+    </div>
+
+    <!-- Q2 -->
+    <div id="q2Box" class="hidden">
+        <p><strong>2) Who is your fav daddy?</strong></p>
+        <label><input type="radio" name="q2" value="a"> Pranapkanth</label>
+        <label><input type="radio" name="q2" value="b"> pookie Shiva Shankar</label>
+        <button onclick="checkQ2()">Next</button>
+    </div>
+
+    <!-- Q3 -->
+    <div id="q3Box" class="hidden">
+        <p><strong>3) What's the most important thing to Pranap?</strong></p>
+        <label><input type="radio" name="q3" value="a"> THALA DHONI</label>
+        <label><input type="radio" name="q3" value="b"> A 16 yr old girl from CBE (you)</label>
+        <button onclick="checkQ3()">Next</button>
+    </div>
+
+    <!-- Q4 -->
+    <div id="q4Box" class="hidden">
+        <p><strong>4) What is 226 × 8?</strong></p>
+        <input type="text" id="mathAnswer" placeholder="Type your answer">
+        <button onclick="checkQ4()">Finish</button>
+    </div>
+
+    <p class="error" id="quizError"></p>
+</div>
+
+<!-- 💌 MESSAGE PAGE -->
+<div class="box hidden" id="messagePage">
+    <div class="love-msg">
+        You are right, it is the birth date of the Love of my life ❤️<br>
+        I love you the most babe<br>
+        <strong>ALWAYS AND FOREVER.</strong>
+    </div>
+    <button onclick="goFinal()">Go 🫂</button>
+</div>
+
+<!-- 🎉 FINAL PAGE -->
+<div class="hidden" id="finalPage">
+    <h1>🫂 Happy Hug Day, my love 🤍</h1>
+    <p>If I were there, I’d never let go…</p>
+
+    <img src="hug.jpg" class="big-image" alt="Big Hug">
+
+    <video autoplay loop controls>
+        <source src="crazy.mp4" type="video/mp4">
+    </video>
+</div>
+
+<script>
+function checkPassword() {
+    if (document.getElementById("password").value.toLowerCase() === "kanneta") {
+        passwordBox.classList.add("hidden");
+        questionBox.classList.remove("hidden");
+    } else {
+        passError.innerText = "sunni thappu di, kannadi podalaya?";
+        passwordBox.classList.add("shake");
+        setTimeout(()=>passwordBox.classList.remove("shake"),400);
+    }
+}
+
+function getVal(n){
+    const o=document.getElementsByName(n);
+    for(let i of o) if(i.checked) return i.value;
+    return null;
+}
+
+function showError(m){
+    quizError.innerText=m;
+    quizError.classList.add("shake");
+    setTimeout(()=>quizError.classList.remove("shake"),400);
+}
+
+function checkQ1(){
+    if(!getVal("q1")) return showError("Select something 😒");
+    q1Box.classList.add("hidden"); q2Box.classList.remove("hidden");
+}
+function checkQ2(){
+    if(getVal("q2")!=="a") return showError("im your only Daddy,babe!!! 😤");
+    q2Box.classList.add("hidden"); q3Box.classList.remove("hidden");
+}
+function checkQ3(){
+    if(getVal("q3")!=="b") return showError("Think again 😌");
+    q3Box.classList.add("hidden"); q4Box.classList.remove("hidden");
+}
+function checkQ4(){
+    if(document.getElementById("mathAnswer").value.trim()!=="1808")
+        return showError("Wrong math 😏 try again");
+    questionBox.classList.add("hidden");
+    messagePage.classList.remove("hidden");
+}
+function goFinal(){
+    messagePage.classList.add("hidden");
+    finalPage.classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
